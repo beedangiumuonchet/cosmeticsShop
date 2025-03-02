@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "Son môi đỏ lì",
+        "category": "makeup",
+        "brand": "brandA",
+        "price": 350000,
+        "image": "/images/dinto_son.webp"
+    },
+    {
+        "id": 2,
+        "name": "Son dưỡng môi",
+        "category": "makeup",
+        "brand": "brandB",
+        "price": 250000,
+        "image": "/images/son-duong.png"
+    },
+    {
+        "id": 3,
+        "name": "Nước hoa nữ Chanel",
+        "category": "perfume",
+        "brand": "brandC",
+        "price": 2200000,
+        "image": "/images/nuoc-hoa-chanel.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Nước hoa Dior Sauvage",
+        "category": "perfume",
+        "brand": "brandD",
+        "price": 1800000,
+        "image": "/images/nuoc-hoa-dior.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Kem nền trang điểm",
+        "category": "makeup",
+        "brand": "brandA",
+        "price": 520000,
+        "image": "/images/kem-nen.png"
+    },
+    {
+        "id": 6,
+        "name": "Phấn phủ kiềm dầu",
+        "category": "makeup",
+        "brand": "brandB",
+        "price": 430000,
+        "image": "/images/phan-phu.webp"
+    },
+    {
+        "id": 7,
+        "name": "Son kem lì 3CE",
+        "category": "makeup",
+        "brand": "brandA",
+        "price": 310000,
+        "image": "/images/son-kem-3ce.webp"
+    },
+    {
+        "id": 8,
+        "name": "Nước hoa nam Versace",
+        "category": "perfume",
+        "brand": "brandC",
+        "price": 1950000,
+        "image": "/images/nuoc-hoa-versace.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Mascara chống thấm nước",
+        "category": "makeup",
+        "brand": "brandD",
+        "price": 280000,
+        "image": "/images/mascara.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Phấn mắt 9 màu",
+        "category": "makeup",
+        "brand": "brandA",
+        "price": 540000,
+        "image": "/images/phan-mat.png"
+    },
+    {
+        "id": 11,
+        "name": "Nước hoa nữ Gucci Bloom",
+        "category": "perfume",
+        "brand": "brandB",
+        "price": 2100000,
+        "image": "/images/nuoc-hoa-gucci.webp"
+    },
+    {
+        "id": 12,
+        "name": "Chì kẻ mày nâu tự nhiên",
+        "category": "makeup",
+        "brand": "brandC",
+        "price": 190000,
+        "image": "/images/ke-may.webp"
+    },
+    {
+        "id": 13,
+        "name": "Son bóng dưỡng ẩm",
+        "category": "makeup",
+        "brand": "brandD",
+        "price": 330000,
+        "image": "/images/son-bong.webp"
+    },
+    {
+        "id": 14,
+        "name": "Xịt giữ lớp trang điểm",
+        "category": "makeup",
+        "brand": "brandA",
+        "price": 450000,
+        "image": "/images/xit-giu-lop-trang-diem.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Nước hoa nam Bleu de Chanel",
+        "category": "perfume",
+        "brand": "brandC",
+        "price": 2400000,
+        "image": "/images/nuoc-hoa-bleu.jpg"
+    }
+]

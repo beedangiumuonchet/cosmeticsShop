@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="/products">Sản Phẩm</a></li>
+                <li><a href="/about">Giới Thiệu</a></li>
+                <li><a href="/contact">Liên Hệ</a></li>
+                <li>
+                    <a href="/cart">
+                        🛒 Giỏ hàng (<span id="cart-count">0</span>)
+                    </a>
+                </li>
+                <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+                <li class="user-dropdown" style="display: none;">
+                    <a href="#" id="username-display">
+                        <i class="fas fa-user-circle"></i> 
+                        <span id="dropdown-username">User</span> ▼
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile"><i class="fas fa-user"></i> Thông tin tài khoản</a></li>
+                        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="cart-container">
+        <h2>Giỏ Hàng</h2>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Tổng</th>
+                    <th>Xóa Sản Phẩm</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
+            </tbody>
+        </table>
+        <div class="cart-summary">
+            <h3>Tổng tiền: <span id="cart-total">0</span> VND</h3>
+            <button id="checkout-btn" class="checkout">Thanh Toán</button>
+        </div>
+    </section>
+    
+    
+    <script src="/javascripts/cart.js"></script>
+    <script src="/javascripts/login.js"></script>
+    <script src="/javascripts/products.js"></script>
+</body>
+</html>

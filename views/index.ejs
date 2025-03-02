@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPhamShop - Mỹ Phẩm Chính Hãng</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+
+  <header>
+    <nav>
+        <ul class="nav-right">
+            <li><a href="/">Trang Chủ</a></li>
+            <li><a href="/products">Sản Phẩm</a></li>
+            <li><a href="/about">Giới Thiệu</a></li>
+            <li><a href="/contact">Liên Hệ</a></li>
+            <li>
+                <a href="/cart">
+                    🛒 Giỏ hàng (<span id="cart-count">0</span>)
+                </a>
+                </a>
+            </li>
+            <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+            <li class="user-dropdown" style="display: none;">
+                <a href="#" id="username-display">
+                    <i class="fas fa-user-circle"></i> 
+                    <span id="dropdown-username">User</span> ▼
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile"><i class="fas fa-user"></i> Thông tin tài khoản</a></li>
+                    <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<!-- BANNER -->
+<section class="hero"></section>
+
+    <!-- DANH MỤC NỔI BẬT -->
+    <section class="categories">
+        <h2>Danh Mục Sản Phẩm</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="/images/lipstick.jpg" alt="Son môi">
+                <h3>Son Môi</h3>
+            </div>
+            <div class="category-card">
+                <img src="/images/skincare.webp" alt="Chăm sóc da">
+                <h3>Chăm Sóc Da</h3>
+            </div>
+            <div class="category-card">
+                <img src="/images/makeup.png" alt="Trang điểm">
+                <h3>Trang Điểm</h3>
+            </div>
+            <div class="category-card">
+                <img src="/images/perfume.webp" alt="Nước hoa">
+                <h3>Nước Hoa</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- SẢN PHẨM BÁN CHẠY -->
+    <section class="products">
+        <h2>Sản Phẩm Bán Chạy</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/images/lipstick-product.webp" alt="Son">
+                <h3>Son MAC Ruby Woo</h3>
+                <p>Giá: 650.000đ</p>
+                <a href="#" class="btn">Mua ngay</a>
+            </div>
+            <div class="product-card">
+                <img src="/images/cream-product.webp" alt="Kem dưỡng">
+                <h3>Kem Dưỡng Ẩm Laneige</h3>
+                <p>Giá: 450.000đ</p>
+                <a href="#" class="btn">Mua ngay</a>
+            </div>
+            <div class="product-card">
+                <img src="/images/perfume-product.webp" alt="Nước hoa">
+                <h3>Nước Hoa Dior</h3>
+                <p>Giá: 2.300.000đ</p>
+                <a href="#" class="btn">Mua ngay</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 MyPhamShop. All rights reserved.</p>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+    const loginButton = document.querySelector(".btn-login");
+    const userDropdown = document.querySelector(".user-dropdown");
+    const usernameDisplay = document.getElementById("dropdown-username");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // Kiểm tra xem user đã đăng nhập chưa
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+        updateNavbar(loggedInUser);
+    }
+
+    function updateNavbar(username) {
+        loginButton.style.display = "none"; // Ẩn nút đăng nhập
+        userDropdown.style.display = "inline-block"; // Hiện dropdown user
+        usernameDisplay.textContent = username; // Gán tên user
+
+        // Toggle dropdown menu khi click vào username
+        document.getElementById("username-display").addEventListener("click", function (event) {
+            event.preventDefault();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        // Đóng dropdown khi click bên ngoài
+        document.addEventListener("click", function (event) {
+            if (!userDropdown.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    }
+
+    // Xử lý đăng xuất
+    logoutBtn?.addEventListener("click", function (event) {
+        event.preventDefault();
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+    });
+});
+  </script>
+  
+</body>
+</html>
