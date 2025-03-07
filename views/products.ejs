@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sản Phẩm</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="/products">Sản Phẩm</a></li>
+                <li><a href="/about">Giới Thiệu</a></li>
+                <li><a href="/contact">Liên Hệ</a></li>
+                <li>
+                    <a href="/cart">
+                        🛒 Giỏ hàng (<span id="cart-count">0</span>)
+                    </a>
+                </li>
+                <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+                <li class="user-dropdown" style="display: none;">
+                    <a href="#" id="username-display">
+                        <i class="fas fa-user-circle"></i> 
+                        <span id="dropdown-username">User</span> ▼
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile"><i class="fas fa-user"></i> Thông tin tài khoản</a></li>
+                        <li><a href="/orders"><i class="fas fa-user"></i> Đơn mua</a></li>
+                        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    
+    <!-- Bộ lọc sản phẩm -->
+    <section class="filters">
+        <label for="category">Danh mục:</label>
+        <select id="category">
+            <option value="all">Tất cả</option>
+            <option value="skincare">Chăm sóc da</option>
+            <option value="makeup">Trang điểm</option>
+            <option value="perfume">Nước hoa</option> <!-- Sửa lỗi trùng value -->
+        </select>
+    
+        <label for="brand">Thương hiệu:</label>
+        <select id="brand">
+            <option value="all">Tất cả</option>
+            <option value="brandA">Thương hiệu A</option>
+            <option value="brandB">Thương hiệu B</option>
+        </select>
+    
+        <label for="price">Giá:</label>
+        <select id="price">
+            <option value="all">Tất cả</option>
+            <option value="low">Dưới 500k</option>
+            <option value="mid">500k - 1 triệu</option>
+            <option value="high">Trên 1 triệu</option>
+        </select>
+    </section>
+     
+
+    
+    <!-- Danh sách sản phẩm -->
+    <section class="product-grid" id="productGrid">
+        <!-- Sản phẩm sẽ được load từ JSON vào đây -->
+    </section>
+    <!-- Modal for Product Details -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 id="modal-product-name"></h2>
+        <img id="modal-product-image" src="" alt="" />
+        <p id="modal-product-description"></p>
+        <p id="modal-product-price"></p>
+        <button id="add-to-cart-modal" class="add-to-cart">🛒 Thêm vào giỏ hàng</button>
+    </div>
+</div>
+
+<!-- Thêm các CSS cho modal -->
+<style>
+    .modal {
+        display: none; /* Ẩn modal mặc định */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+    <!-- products.ejs -->
+<script src="/javascripts/products.js"></script> 
+<script src="/javascripts/cart.js"></script>
+    <script src="/javascripts/login.js">
+        document.addEventListener("DOMContentLoaded", () => {
+    const loginButton = document.querySelector(".btn-login");
+    const userDropdown = document.querySelector(".user-dropdown");
+    const usernameDisplay = document.getElementById("dropdown-username");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // Kiểm tra xem user đã đăng nhập chưa
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+        updateNavbar(loggedInUser);
+    }
+
+    function updateNavbar(username) {
+        loginButton.style.display = "none"; // Ẩn nút đăng nhập
+        userDropdown.style.display = "inline-block"; // Hiện dropdown user
+        usernameDisplay.textContent = username; // Gán tên user
+
+        // Toggle dropdown menu khi click vào username
+        document.getElementById("username-display").addEventListener("click", function (event) {
+            event.preventDefault();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        // Đóng dropdown khi click bên ngoài
+        document.addEventListener("click", function (event) {
+            if (!userDropdown.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    }
+
+    // Xử lý đăng xuất
+    logoutBtn?.addEventListener("click", function (event) {
+        event.preventDefault();
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+    });
+});
+    </script>
+</body>
+</html>

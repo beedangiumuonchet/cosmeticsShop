@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Đơn Hàng</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        .order-status {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .order-status a {
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .order-status a.active {
+            background: #ff5a5f;
+            color: #fff;
+        }
+        .order-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px auto;
+            width: 90%;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .order-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .product-info {
+            flex-grow: 1;
+        }
+        .order-total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-review {
+            background: #ff5a5f;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-review:hover {
+            background: #e0484d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="/products">Sản Phẩm</a></li>
+                <li><a href="/about">Giới Thiệu</a></li>
+                <li><a href="/contact">Liên Hệ</a></li>
+                <li><a href="/cart">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="order-status">
+        <a href="#" onclick="filterOrders('all')" class="active">Tất cả</a>
+        <a href="#" onclick="filterOrders('pending')">Chờ giao hàng</a>
+        <a href="#" onclick="filterOrders('delivered')">Hoàn thành</a>
+        <a href="#" onclick="filterOrders('canceled')">Đã hủy</a>
+    </div>
+
+    <main>
+        <div id="order-list">
+            <% orders.forEach(order => { %>
+                <div class="order-item" data-status="<%= order.status %>" onclick="redirectToDetail(<%= order.order_id %>)">
+                    <p><strong>Ngày đặt:</strong> <%= order.order_date %></p>
+                    <% order.products.forEach(product => { %>
+                        <div class="order-content">
+                            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+                            <div class="product-info">
+                                <p><strong><%= product.name %></strong></p>
+                                <p>Số lượng: <%= product.quantity %> - Giá: <%= product.price.toLocaleString('vi-VN') %> đ</p>
+                            </div>
+                        </div>
+                    <% }) %>
+                    <p class="order-total">Tổng tiền: <%= order.total_price.toLocaleString('vi-VN') %> đ</p>
+                    <% if (order.status === 'delivered') { %>
+                        <button class="btn-review" data-order-id="<%= order.order_id %>">Đánh Giá</button>
+                        <% } %>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+    <script src="/javascripts/login.js"></script>
+    <script src="/javascripts/review.js"></script>
+
+    <script>
+        function filterOrders(status) {
+            document.querySelectorAll('.order-status a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`[onclick="filterOrders('${status}')"]`).classList.add('active');
+            
+            document.querySelectorAll('.order-item').forEach(item => {
+                if (status === 'all' || item.getAttribute('data-status') === status) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function redirectToDetail(orderId) {
+            window.location.href = `/order/${orderId}`;
+        }
+
+        function redirectToReview(orderId) {
+            window.location.href = `/review/${orderId}`;
+        }
+    </script>
+</body>
+</html>

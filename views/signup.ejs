@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ff4d6d;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #ff1a4d;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #ff4d6d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Thông báo */
+        .message {
+            font-size: 14px;
+            margin-top: 10px;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="/images/logo.png" alt="Logo" />
+          <span>DINBEE</span>
+      </div>
+      
+          <nav>
+              <ul>
+                  <li><a href="/">Trang Chủ</a></li>
+                  <li><a href="/products">Sản Phẩm</a></li>
+                  <li><a href="/about">Giới Thiệu</a></li>
+                  <li><a href="/contact">Liên Hệ</a></li>
+                  <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+              </ul>
+          </nav>
+      </header>
+    <div class="signup-container">
+        <h2>Đăng Ký</h2>
+        <form id="signupForm">
+            <input type="text" id="username" placeholder="Tên đăng nhập" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit" class="btn">Đăng Ký</button>
+        </form>
+        <p id="message" class="message"></p>
+        <p class="login-link">Đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn chặn reload trang
+
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var message = document.getElementById('message');
+
+            // Lấy danh sách tài khoản đã đăng ký từ localStorage
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Kiểm tra tên đăng nhập đã tồn tại chưa
+            if (users.some(user => user.username === username)) {
+                message.textContent = "Tên đăng nhập đã tồn tại!";
+                message.className = "message error";
+                message.style.display = "block";
+                return;
+            }
+
+            // Kiểm tra email đã tồn tại chưa
+            if (users.some(user => user.email === email)) {
+                message.textContent = "Email đã được sử dụng!";
+                message.className = "message error";
+                message.style.display = "block";
+                return;
+            }
+
+            // Kiểm tra mật khẩu có khớp không
+            if (password !== confirmPassword) {
+                message.textContent = "Mật khẩu nhập lại không khớp!";
+                message.className = "message error";
+                message.style.display = "block";
+                return;
+            }
+
+            // Lưu tài khoản vào localStorage
+            users.push({ username: username, email: email, password: password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Thông báo thành công
+            message.textContent = "Đăng ký thành công! Chuyển hướng đến đăng nhập...";
+            message.className = "message success";
+            message.style.display = "block";
+
+            setTimeout(() => {
+                window.location.href = "/login"; // Chuyển hướng sau 1.5s
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
