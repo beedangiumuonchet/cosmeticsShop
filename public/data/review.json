@@ -1,0 +1,19 @@
+[
+    {
+        "order_id": 1,
+        "reviews": [
+            {
+                "product_id": 1,
+                "rating": 5,
+                "comment": "Sản phẩm tuyệt vời!",
+                "images": []
+            },
+            {
+                "product_id": 5,
+                "rating": 4,
+                "comment": "Tốt, nhưng có thể cải thiện.",
+                "images": []
+            }
+        ]
+    }
+]

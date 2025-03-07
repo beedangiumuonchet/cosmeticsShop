@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá Đơn Hàng</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="/products">Sản Phẩm</a></li>
+                <li><a href="/about">Giới Thiệu</a></li>
+                <li><a href="/contact">Liên Hệ</a></li>
+                <li><a href="/cart">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="/login" class="btn-login">Đăng Nhập</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Đánh Giá Đơn Hàng #<%= order.order_id %></h2>
+        <p><strong>Ngày đặt hàng:</strong> <%= order.order_date %></p>
+
+        <h4>Sản phẩm trong đơn hàng:</h4>
+        <form action="/review/<%= order.order_id %>" method="POST" enctype="multipart/form-data">
+            <ul>
+                <% order.products.forEach(product => { %>  <!-- Lặp qua các sản phẩm trong đơn hàng -->
+                    <li>
+                        <img src="<%= product.image %>" alt="<%= product.name %>" width="50">
+                        <p><strong><%= product.name %></strong></p>
+                        <p>Số lượng: <%= product.quantity %></p>
+                        <p>Giá: <%= product.price %> VND</p>
+
+                        <!-- Đánh giá cho từng sản phẩm -->
+                        <label>Chọn số sao:</label>
+                        <select name="rating_<%= product.id %>">
+                            <option value="5">⭐️⭐️⭐️⭐️⭐️ - Tuyệt vời</option>
+                            <option value="4">⭐️⭐️⭐️⭐️ - Tốt</option>
+                            <option value="3">⭐️⭐️⭐️ - Bình thường</option>
+                            <option value="2">⭐️⭐️ - Kém</option>
+                            <option value="1">⭐️ - Tệ</option>
+                        </select>
+                        
+                        <label>Nhận xét:</label>
+                        <textarea name="comment_<%= product.id %>"></textarea>
+                        
+                        <label>Hình ảnh:</label>
+                        <input type="file" name="images_<%= product.id %>" multiple>
+                    </li>
+                <% }); %>
+            </ul>
+<!-- Tổng giá trị, đặt dưới cùng bên phải -->
+<p class="total-price">Tổng giá trị: <%= order.total_price %> VND</p>
+            <button type="submit">Gửi Đánh Giá</button>
+        </form>
+    </main>
+</body>
+</html>
